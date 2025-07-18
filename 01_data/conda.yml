@@ -1,0 +1,11 @@
+name: data_ingestion
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pip  
+  - pandas
+  - numpy   
+  - pip:
+      - mlflow==2.8.1
+      - wandb==0.16.0

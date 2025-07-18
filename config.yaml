@@ -1,0 +1,10 @@
+main:
+  components_repository: "https://github.com/CloudiusAurelius/ml-scoring-monitoring"
+  # All the intermediate files will be copied to this directory at the end of the run.
+  # Set this to null if you are running in prod
+  project_name: ml_scoring_monitoring
+  experiment_name: development
+  steps: all
+  data_ingestion:
+    config_file: "config.json"
+    output_filename: "finaldata.csv"

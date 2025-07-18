@@ -1,0 +1,17 @@
+name: ml_scmon
+channels:
+  - conda-forge
+  - defaults
+dependencies:  
+  - jupyter  
+  - jupyterlab  
+  - scikit-learn  
+  - pandas
+  - numpy    
+  - fastapi   
+  - requests
+  - pytest
+  - pip
+  - pip:
+    - logging
+    - pickle
