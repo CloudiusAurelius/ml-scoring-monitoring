@@ -8,3 +8,6 @@ main:
 data_ingestion:
   config_file: "config.json"
   output_filename: "finaldata.csv"
+model_training:
+  config_file: "config.json"
+  output_modelname: "trainedmodel.pkl"

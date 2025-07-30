@@ -30,3 +30,7 @@ conda activate ml_scmon
 ### Step 1: Data Ingestion
 - all csv files from folder /01_data/practicedata are read and written to:
 - /01_data/ingestdata
+- excute step with
+```Bash
+mlflow run . -P steps="data_ingestion"
+```

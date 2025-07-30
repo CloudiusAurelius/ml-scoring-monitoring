@@ -1,0 +1,19 @@
+name: training
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+
+      config_file:
+        description: "Name of the json configuration file containing the data ingestion settings."
+        type: string      
+
+      output_filename:
+        description: "Name of the output file where the final data will be saved."
+        type: string
+
+    command: >-
+        python training.py  --config_file {config_file} \
+                             --output_modelname {output_modelname} 
+                       

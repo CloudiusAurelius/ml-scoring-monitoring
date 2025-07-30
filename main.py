@@ -38,8 +38,7 @@ def go(config: DictConfig):
 
         
         if "data_ingestion" in active_steps:
-            # Ingest data from the input folder and save it to the output folder
-            # This will also log the input and output paths to W&B            
+            # Ingest data from the input folder and save it to the output folder            
             _ = mlflow.run(
                 os.path.join(hydra.utils.get_original_cwd(), "01_data"),
                 entry_point="main",
@@ -48,6 +47,20 @@ def go(config: DictConfig):
                 parameters={
                     "config_file": config["data_ingestion"]["config_file"],
                     "output_filename": config["data_ingestion"]["output_filename"]
+                }
+            )
+
+
+        if "model_training" in active_steps:
+            # Train the model using the ingested data
+            _ = mlflow.run(
+                os.path.join(hydra.utils.get_original_cwd(), "02_training"),
+                entry_point="main",
+                #version='main',
+                env_manager="conda",
+                parameters={
+                    "config_file": config["model_training"]["config_file"],
+                    "output_modelname": config["model_training"]["output_modelname"]
                 }
             )
         """

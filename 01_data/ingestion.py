@@ -20,6 +20,10 @@ logger = logging.getLogger()
 def load_config(config_file: str) -> dict:
     """
     Load configuration from a JSON file.
+    Inputs:
+    - config_file: Path to the configuration file
+    Outputs:
+    - config: Dictionary containing the configuration parameters
     """
     if not os.path.exists(config_file):
         logger.error(f"Configuration file {config_file} does not exist. Exiting.")
@@ -34,6 +38,10 @@ def load_config(config_file: str) -> dict:
 def load_csv(folder_path: str) -> pd.DataFrame:
     """
     Load all CSV files from a folder and merge them into a single DataFrame.
+    Inputs:
+    - folder_path: Path to the folder containing CSV files
+    Outputs:
+    - df: Merged DataFrame containing all data from the CSV files
     """
     all_files = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
     
@@ -56,6 +64,10 @@ def load_csv(folder_path: str) -> pd.DataFrame:
 def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
     """
     Remove duplicate rows from a DataFrame.
+    Inputs:
+    - df: DataFrame from which duplicates need to be removed
+    Outputs:
+    - df: DataFrame with duplicates removed
     """
     if df.empty:
         logger.error("The DataFrame is empty. Exiting.")
@@ -71,6 +83,11 @@ def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
 def save_dataframe(df: pd.DataFrame, outputfilepath: str) -> None:
     """
     Save a DataFrame to a CSV file.
+    Inputs:
+    - df: DataFrame to be saved
+    - outputfilepath: Path where the DataFrame will be saved
+    Outputs:
+    - None
     """
     if df.empty:
         logger.error("The DataFrame is empty. Exiting.")
