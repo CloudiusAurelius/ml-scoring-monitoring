@@ -211,3 +211,4 @@ __marimo__/
 _Archive/
 *.csv
 ingested_files.txt
+mlruns/
