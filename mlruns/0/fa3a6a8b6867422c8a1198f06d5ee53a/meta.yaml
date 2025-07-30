@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/fa3a6a8b6867422c8a1198f06d5ee53a/artifacts
+end_time: 1753890476177
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: fa3a6a8b6867422c8a1198f06d5ee53a
+run_name: intelligent-croc-636
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753890467910
+status: 4
+tags: []
+user_id: bernd

@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/c6c5d313438f4d82a774bdeb82d5cb01/artifacts
+end_time: 1753886347728
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c6c5d313438f4d82a774bdeb82d5cb01
+run_name: amusing-koi-762
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753886339439
+status: 4
+tags: []
+user_id: bernd

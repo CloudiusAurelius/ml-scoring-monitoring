@@ -5,6 +5,11 @@ import os
 import hydra
 from omegaconf import DictConfig
 
+# Set MLflow tracking URI, experiment, and autologging
+mlflow.set_experiment("MLScoringMonitoringExperiment")
+mlflow.autolog()
+
+# Define the steps to be executed in the pipeline
 _steps = [
     "data_ingestion",
     #"basic_cleaning",
@@ -21,8 +26,8 @@ _steps = [
 def go(config: DictConfig):
 
     # Setup the wandb experiment. All runs will be grouped under this name
-    os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
-    os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
+    #os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
+    #os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
 
     # Steps to execute
     steps_par = config['main']['steps']
@@ -37,8 +42,8 @@ def go(config: DictConfig):
             # This will also log the input and output paths to W&B            
             _ = mlflow.run(
                 os.path.join(hydra.utils.get_original_cwd(), "01_data"),
-                "main",
-                version='main',
+                entry_point="main",
+                #version='main',
                 env_manager="conda",
                 parameters={
                     "config_file": config["data_ingestion"]["config_file"],

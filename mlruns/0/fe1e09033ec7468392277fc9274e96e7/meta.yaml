@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/fe1e09033ec7468392277fc9274e96e7/artifacts
+end_time: 1752851355077
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: fe1e09033ec7468392277fc9274e96e7
+run_name: inquisitive-seal-39
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752851226038
+status: 4
+tags: []
+user_id: bernd

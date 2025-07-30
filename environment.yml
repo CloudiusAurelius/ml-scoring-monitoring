@@ -10,8 +10,8 @@ dependencies:
   - numpy    
   - fastapi   
   - requests
-  - pytest
+  - pytest  
   - pip
   - pip:
     - logging
-    - pickle
+    - mlflow

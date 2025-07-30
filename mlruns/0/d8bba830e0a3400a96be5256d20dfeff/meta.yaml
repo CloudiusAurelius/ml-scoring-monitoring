@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/d8bba830e0a3400a96be5256d20dfeff/artifacts
+end_time: 1752850185812
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d8bba830e0a3400a96be5256d20dfeff
+run_name: orderly-smelt-923
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752850088871
+status: 4
+tags: []
+user_id: bernd

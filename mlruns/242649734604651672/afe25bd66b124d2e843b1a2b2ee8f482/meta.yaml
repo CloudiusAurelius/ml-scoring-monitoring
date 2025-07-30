@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/242649734604651672/afe25bd66b124d2e843b1a2b2ee8f482/artifacts
+end_time: 1753884662575
+entry_point_name: ''
+experiment_id: '242649734604651672'
+lifecycle_stage: active
+run_id: afe25bd66b124d2e843b1a2b2ee8f482
+run_name: handsome-kite-956
+run_uuid: afe25bd66b124d2e843b1a2b2ee8f482
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753884659142
+status: 4
+tags: []
+user_id: bernd

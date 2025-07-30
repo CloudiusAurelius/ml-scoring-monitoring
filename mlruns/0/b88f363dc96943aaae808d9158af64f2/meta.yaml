@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/b88f363dc96943aaae808d9158af64f2/artifacts
+end_time: 1752852215396
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b88f363dc96943aaae808d9158af64f2
+run_name: rogue-carp-186
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752852101559
+status: 4
+tags: []
+user_id: bernd

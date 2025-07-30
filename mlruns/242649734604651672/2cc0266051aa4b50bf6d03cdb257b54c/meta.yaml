@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/242649734604651672/2cc0266051aa4b50bf6d03cdb257b54c/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '242649734604651672'
+lifecycle_stage: active
+run_id: 2cc0266051aa4b50bf6d03cdb257b54c
+run_name: luxuriant-rook-470
+run_uuid: 2cc0266051aa4b50bf6d03cdb257b54c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752851600889
+status: 1
+tags: []
+user_id: bernd

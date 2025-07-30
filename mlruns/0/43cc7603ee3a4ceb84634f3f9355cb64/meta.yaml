@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/43cc7603ee3a4ceb84634f3f9355cb64/artifacts
+end_time: 1752851950696
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 43cc7603ee3a4ceb84634f3f9355cb64
+run_name: bedecked-bee-207
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752851838324
+status: 4
+tags: []
+user_id: bernd

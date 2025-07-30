@@ -9,11 +9,11 @@ entry_points:
         description: "Name of the json configuration file containing the data ingestion settings."
         type: string      
 
-      outoput_filename:
+      output_filename:
         description: "Name of the output file where the final data will be saved."
         type: string
 
     command: >-
-        python run.py  --config_file {config_file} \                    
-                       --output_filename {output_filename} 
+        python ingestion.py  --config_file {config_file} \
+                             --output_filename {output_filename} 
                        

@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/27602e3c260f47cb9eaeece392e590ba/artifacts
+end_time: 1753882887622
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 27602e3c260f47cb9eaeece392e590ba
+run_name: intelligent-yak-91
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753882856107
+status: 4
+tags: []
+user_id: bernd

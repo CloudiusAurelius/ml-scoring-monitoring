@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/242649734604651672/60a9a7b615904dc5a6c7297ed4fe156c/artifacts
+end_time: 1753891275357
+entry_point_name: ''
+experiment_id: '242649734604651672'
+lifecycle_stage: active
+run_id: 60a9a7b615904dc5a6c7297ed4fe156c
+run_name: omniscient-fish-795
+run_uuid: 60a9a7b615904dc5a6c7297ed4fe156c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753891271952
+status: 3
+tags: []
+user_id: bernd

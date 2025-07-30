@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/dc53b88f668f4a71877ced1245a32196/artifacts
+end_time: 1753886544154
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: dc53b88f668f4a71877ced1245a32196
+run_name: trusting-squid-142
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753886457050
+status: 4
+tags: []
+user_id: bernd

@@ -5,6 +5,6 @@ main:
   project_name: ml_scoring_monitoring
   experiment_name: development
   steps: all
-  data_ingestion:
-    config_file: "config.json"
-    output_filename: "finaldata.csv"
+data_ingestion:
+  config_file: "config.json"
+  output_filename: "finaldata.csv"

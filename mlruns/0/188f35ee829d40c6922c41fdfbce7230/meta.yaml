@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/188f35ee829d40c6922c41fdfbce7230/artifacts
+end_time: 1752853235662
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 188f35ee829d40c6922c41fdfbce7230
+run_name: serious-mule-911
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752853030058
+status: 4
+tags: []
+user_id: bernd

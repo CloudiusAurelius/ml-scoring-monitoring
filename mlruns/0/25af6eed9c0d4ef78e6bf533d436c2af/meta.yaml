@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/25af6eed9c0d4ef78e6bf533d436c2af/artifacts
+end_time: 1753888835776
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 25af6eed9c0d4ef78e6bf533d436c2af
+run_name: upbeat-crab-719
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753888820392
+status: 4
+tags: []
+user_id: bernd

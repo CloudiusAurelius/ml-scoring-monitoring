@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/242649734604651672/8a9d24363431443f926cb01f91b4c79e/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '242649734604651672'
+lifecycle_stage: active
+run_id: 8a9d24363431443f926cb01f91b4c79e
+run_name: hilarious-seal-432
+run_uuid: 8a9d24363431443f926cb01f91b4c79e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752852107390
+status: 1
+tags: []
+user_id: bernd

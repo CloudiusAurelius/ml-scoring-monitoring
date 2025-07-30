@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/b8ea26d13a574f8e8de52e606e5f7326/artifacts
+end_time: 1753888217175
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b8ea26d13a574f8e8de52e606e5f7326
+run_name: luminous-skink-496
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753888110073
+status: 4
+tags: []
+user_id: bernd

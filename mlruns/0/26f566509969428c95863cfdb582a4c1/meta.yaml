@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/26f566509969428c95863cfdb582a4c1/artifacts
+end_time: 1752850017089
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 26f566509969428c95863cfdb582a4c1
+run_name: funny-mare-481
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752850012614
+status: 4
+tags: []
+user_id: bernd

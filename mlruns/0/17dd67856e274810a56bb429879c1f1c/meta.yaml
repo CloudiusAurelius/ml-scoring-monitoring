@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/17dd67856e274810a56bb429879c1f1c/artifacts
+end_time: 1753889250602
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 17dd67856e274810a56bb429879c1f1c
+run_name: brawny-lamb-245
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753889243399
+status: 4
+tags: []
+user_id: bernd

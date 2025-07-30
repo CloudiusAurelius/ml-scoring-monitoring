@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/242649734604651672/0ae111fff256418db71aa0d4634d35d7/artifacts
+end_time: 1753890546964
+entry_point_name: ''
+experiment_id: '242649734604651672'
+lifecycle_stage: active
+run_id: 0ae111fff256418db71aa0d4634d35d7
+run_name: aged-swan-888
+run_uuid: 0ae111fff256418db71aa0d4634d35d7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753890543575
+status: 3
+tags: []
+user_id: bernd

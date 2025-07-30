@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/fb15b271f6384de7b879b6bb97483e04/artifacts
+end_time: 1752850615152
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: fb15b271f6384de7b879b6bb97483e04
+run_name: clumsy-crow-791
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1752850610394
+status: 4
+tags: []
+user_id: bernd

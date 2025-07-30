@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/bernd/Documents/Courses/Udacity_MLDevOps/ml-scoring-monitoring/mlruns/0/beccb3ca73c946a8b23b96b4a8fee2f4/artifacts
+end_time: 1753891094500
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: beccb3ca73c946a8b23b96b4a8fee2f4
+run_name: bemused-loon-95
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753891086253
+status: 3
+tags: []
+user_id: bernd
