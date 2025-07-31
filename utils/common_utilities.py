@@ -8,6 +8,9 @@ import logging
 import json
 import os
 
+import pandas as pd
+import pickle
+
 def load_config(config_file: str, logger: logging.Logger) -> dict:
     """
     Load configuration from a JSON file.
@@ -39,3 +42,50 @@ def get_project_root(logger: logging.Logger) -> str:
     logger.info(f"Current working directory: {cwd}")
     project_root = os.path.dirname(cwd)
     return project_root
+
+
+def load_dataset(input_file_path: str, logger: logging.Logger) -> pd.DataFrame:
+    """
+    Load the dataset from a CSV file.
+    Inputs:
+    - input_file_path: Path to the input CSV file
+    Outputs:
+    - df: Loaded DataFrame
+    """         
+    if not os.path.exists(input_file_path):
+        logger.error(f"Dataset file {input_file_path} does not exist. Exiting.")
+        return pd.DataFrame()        
+    df = pd.read_csv(input_file_path)        
+    return df
+
+
+def load_model(model_file_path: str, logger: logging.Logger):
+    """
+    Load a trained model from a file.
+    Inputs:
+    - model_file_path: Path to the model file
+    Outputs:
+    - model: Loaded model object
+    - encoder: Loaded encoder object
+    - label: Name of the label column
+    - categorical_features: List of categorical features used in the model
+    """
+    if not os.path.exists(model_file_path):
+        logger.error(f"Model file {model_file_path} does not exist. Exiting.")
+        return None
+    
+    with open(model_file_path, 'rb') as filehandler:
+       model_name = pickle.load(filehandler)["model_name"]
+       model_created_at = pickle.load(filehandler)["created_at"]
+       model = pickle.load(filehandler)["model"]
+       encoder = pickle.load(filehandler)["encoder"]
+       label = pickle.load(filehandler)["label_column"]
+       categorical_features = pickle.load(filehandler)["categorical_features"]
+    logger.info(f"Model name: {model_name}")
+    logger.info(f"Model created at: {model_created_at}")
+    logger.info(f"Model loaded: {model}")
+    logger.info(f"Encoder loaded: {encoder}")
+    logger.info(f"Label column: {label}")
+    logger.info(f"Categorical features: {categorical_features}")
+    
+    return model, encoder, label, categorical_features

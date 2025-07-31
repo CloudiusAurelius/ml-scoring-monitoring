@@ -11,3 +11,8 @@ data_ingestion:
 model_training:
   config_file: "config.json"
   output_modelname: "trainedmodel.pkl"
+model_scoring:
+  config_file: "config.json"
+  input_data: "finaldata.csv"
+  input_modelinfo: "trainedmodel.pkl"
+  output_score_filename: "latestscore.txt"

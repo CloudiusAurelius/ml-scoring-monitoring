@@ -7,9 +7,23 @@ entry_points:
 
       config_file:
         description: "Name of the json configuration file containing the data ingestion settings."
-        type: string            
+        type: string
+
+      input_data:
+        description: "Name of the file which contains the data to be scored."
+        type: string
+
+      input_modelinfo:
+        description: "Name of the file with the trained model used for scoring."
+        type: string
+
+      output_score_filename:
+        description: "Name of the file where the score will be saved."
+        type: string
 
     command: >-
-        python scoring.py  --config_file {config_file}
-                             
+        python scoring.py  --config_file {config_file}\
+                           --input_data {input_data}\                            
+                           --input_modelinfo {input_modelinfo}\
+                           --output_score_filename {output_score_filename}
                        

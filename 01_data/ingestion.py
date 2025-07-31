@@ -94,7 +94,7 @@ def go(args):
     # Ingest data from the input folder, remove duplicates and save it to the output folder
     logger.info("Starting data ingestion process")        
 
-    # Get the current working directory and project root
+    # Get the project root
     project_root = get_project_root(logger)   
     logger.info(f"Project root directory: {project_root}")
     

@@ -63,7 +63,22 @@ def go(config: DictConfig):
                     "config_file": config["model_training"]["config_file"],
                     "output_modelname": config["model_training"]["output_modelname"]
                 }
-            )        
+            )
+
+        if "model_scoring" in active_steps:
+            # Train the model using the ingested data
+            _ = mlflow.run(
+                os.path.join(hydra.utils.get_original_cwd(), "03_scoring"),
+                entry_point="main",
+                #version='main',
+                env_manager="conda",
+                parameters={
+                    "config_file": config["model_scoring"]["config_file"],
+                    "input_data": config["model_scoring"]["input_data"],
+                    "input_modelinfo": config["model_scoring"]["input_modelinfo"],
+                    "output_score_filename": config["model_scoring"]["output_score_filename"]
+                }
+            )           
 
 
 if __name__ == "__main__":

@@ -23,30 +23,13 @@ from datetime import datetime
 from sklearn.linear_model import LogisticRegression
 
 from data_processing.model_data_prep import process_data
-from utils.common_utilities import get_project_root, load_config
+from utils.common_utilities import get_project_root, load_config, load_dataset
 
 
 
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
-
-
-
-def load_dataset(input_file_path: str) -> pd.DataFrame:
-    """
-    Load the dataset from a CSV file.
-    Inputs:
-    - input_file_path: Path to the input CSV file
-    Outputs:
-    - df: Loaded DataFrame
-    """         
-    if not os.path.exists(input_file_path):
-        logger.error(f"Dataset file {input_file_path} does not exist. Exiting.")
-        return pd.DataFrame()        
-    df = pd.read_csv(input_file_path)        
-    return df
-
 
 def train_model(X: np.ndarray, y: np.ndarray) -> LogisticRegression:
     """
@@ -100,7 +83,7 @@ def go(args):
     inputfilename = 'finaldata.csv'
     logger.info(f"Input filename for training: {inputfilename}")
    
-    # Get the current working directory and project root
+    # Get the project root
     project_root = get_project_root(logger)   
     logger.info(f"Project root directory: {project_root}")
     
@@ -123,7 +106,7 @@ def go(args):
         )       
     
     logger.info(f"Loading dataset from: {input_file_path}")
-    df = load_dataset(input_file_path)
+    df = load_dataset(input_file_path, logger)
     logger.info(f"Dataset loaded with shape: {df.shape}")    
 
 
@@ -146,8 +129,7 @@ def go(args):
 
     # Process the data
     # --------------------------------------
-    logger.info("Processing data")
-    # Split the dataset into features and target variable
+    logger.info("Processing data")    
     logger.info(f"Splitting dataset into features and target variable: {label}.\
                 One-Hot Encoding categorical features: {categorical_features}")    
     X,y,encoder = process_data(
