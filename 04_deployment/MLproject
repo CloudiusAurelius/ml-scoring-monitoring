@@ -1,0 +1,15 @@
+name: training
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+
+      config_file:
+        description: "Name of the json configuration file containing the data ingestion settings."
+        type: string     
+
+    command: >-
+        python deployment.py  --config_file {config_file}
+                         
+                       

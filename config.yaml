@@ -16,3 +16,6 @@ model_scoring:
   input_data: "testdata.csv"
   input_modelinfo: "trainedmodel.pkl"
   output_score_filename: "latestscore.txt"
+model_deployment:
+  config_file: "config.json"
+  

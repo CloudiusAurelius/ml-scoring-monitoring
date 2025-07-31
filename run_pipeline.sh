@@ -4,7 +4,8 @@ export PYTHONPATH=$(pwd)
 mlflow run . \
 -P steps="data_ingestion"
 -P steps="model_training"
--P steps="model_scoring" 
+-P steps="model_scoring"
+- P steps="model_deployment" 
 #-P steps="basic_cleaning"
 #-P steps="data_check"
 #-P steps="data_split"
