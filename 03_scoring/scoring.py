@@ -112,7 +112,7 @@ def go(args):
         )       
     
     logger.info(f"Loading dataset from: {input_file_path}")
-    df = load_dataset(input_file_path)
+    df = load_dataset(input_file_path, logger)
     logger.info(f"Dataset loaded with shape: {df.shape}") 
 
 
@@ -123,7 +123,7 @@ def go(args):
         project_root,
         '02_training',
         config['output_model_path'],
-        args.input_modelname
+        args.input_modelinfo
     )
     logger.info(f"Loading model from: {model_file_path}")
     
@@ -150,7 +150,7 @@ def go(args):
         encoder=encoder
     )
 
-    logger.info(f"Processed data shapes: X: {X_test.shape}, y: {y.shape}")  
+    logger.info(f"Processed data shapes: X: {X_test.shape}, y: {y_test.shape}")  
     logger.info(f"X preview: {X_test[:5]}")
     logger.info(f"y preview: {y_test[:5]}")
 
@@ -161,6 +161,7 @@ def go(args):
     
     # Prediction using the model    
     y_pred = model.predict(X_test)
+    logger.info(f"Predictions made on the test data: {y_pred[:5]}")
 
 
     # Compute model metrics
@@ -225,7 +226,7 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--input_modelname", 
+        "--input_modelinfo", 
         type=str,
         help="Name of the trained model file to be loaded.",
         required=True

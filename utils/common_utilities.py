@@ -75,17 +75,20 @@ def load_model(model_file_path: str, logger: logging.Logger):
         return None
     
     with open(model_file_path, 'rb') as filehandler:
-       model_name = pickle.load(filehandler)["model_name"]
-       model_created_at = pickle.load(filehandler)["created_at"]
-       model = pickle.load(filehandler)["model"]
-       encoder = pickle.load(filehandler)["encoder"]
-       label = pickle.load(filehandler)["label_column"]
-       categorical_features = pickle.load(filehandler)["categorical_features"]
+       model_info = pickle.load(filehandler)
+    model_name = model_info["name"]
+    model_created_at = model_info["created_at"]
+    model = model_info["model"]
+    encoder = model_info["encoder"]
+    label = model_info["label_column"]
+    features = model_info["features"]
+    categorical_features = model_info["categorical_features"]
     logger.info(f"Model name: {model_name}")
     logger.info(f"Model created at: {model_created_at}")
     logger.info(f"Model loaded: {model}")
     logger.info(f"Encoder loaded: {encoder}")
     logger.info(f"Label column: {label}")
+    logger.info(f"Features used: {features}")
     logger.info(f"Categorical features: {categorical_features}")
     
-    return model, encoder, label, categorical_features
+    return model_name, model_created_at, model, encoder, label, categorical_features

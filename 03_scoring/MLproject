@@ -23,7 +23,7 @@ entry_points:
 
     command: >-
         python scoring.py  --config_file {config_file}\
-                           --input_data {input_data}\                            
+                           --input_data {input_data}\
                            --input_modelinfo {input_modelinfo}\
                            --output_score_filename {output_score_filename}
                        

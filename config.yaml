@@ -13,6 +13,6 @@ model_training:
   output_modelname: "trainedmodel.pkl"
 model_scoring:
   config_file: "config.json"
-  input_data: "finaldata.csv"
+  input_data: "testdata.csv"
   input_modelinfo: "trainedmodel.pkl"
   output_score_filename: "latestscore.txt"
