@@ -1,0 +1,11 @@
+main:
+  components_repository: https://github.com/CloudiusAurelius/ml-scoring-monitoring
+  project_name: ml_scoring_monitoring
+  experiment_name: development
+  steps: model_training
+data_ingestion:
+  config_file: config.json
+  output_filename: finaldata.csv
+model_training:
+  config_file: config.json
+  output_modelname: trainedmodel.pkl

@@ -63,45 +63,7 @@ def go(config: DictConfig):
                     "config_file": config["model_training"]["config_file"],
                     "output_modelname": config["model_training"]["output_modelname"]
                 }
-            )
-        """
-        if "download" in active_steps:
-            # Download file and load in W&B
-            _ = mlflow.run(
-                f"{config['main']['components_repository']}/get_data",
-                "main",
-                version='main',
-                env_manager="conda",
-                parameters={
-                    "sample": config["etl"]["sample"],
-                    "artifact_name": "sample.csv",
-                    "artifact_type": "raw_data",
-                    "artifact_description": "Raw file as downloaded"
-                },
-            )
-        """
-            
-        """
-        if "basic_cleaning" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            _ = mlflow.run(
-                os.path.join(hydra.utils.get_original_cwd(), "src", "basic_cleaning"),
-                "main",
-                parameters={
-                "input_artifact": "sample.csv:latest",
-                "output_artifact": "clean_sample.csv",
-                "output_type": "clean_sample",
-                "output_description": "Data with outliers and null values removed",
-                "min_price": config['etl']['min_price'],
-                "max_price": config['etl']['max_price']
-                },
-            )
-        """
-
-
-        
+            )        
 
 
 if __name__ == "__main__":

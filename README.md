@@ -31,6 +31,12 @@ conda activate ml_scmon
 
 
 ## 2. Workflow
+
+The entire pipeline can be executed with:
+```Bash
+./run_pipeline.sh
+```
+
 ### Step 1: Data Ingestion
 - all csv files from folder ```/01_data/practicedata``` are read and written to:
     - ```/01_data/ingestdata/finaldata.csv``` (duplicate records are removed)

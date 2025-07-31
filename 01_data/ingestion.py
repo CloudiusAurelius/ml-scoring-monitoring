@@ -174,7 +174,7 @@ def go(args):
         
     logger.info(f"Record of ingested files saved to {record_file_path}")
 
-    logger.info("Data ingestion completed successfully.")
+    logger.info("-----Data ingestion completed successfully.-----")
 
 
 if __name__ == "__main__":

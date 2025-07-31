@@ -9,8 +9,8 @@ entry_points:
         description: "Name of the json configuration file containing the data ingestion settings."
         type: string      
 
-      output_filename:
-        description: "Name of the output file where the final data will be saved."
+      output_modelname:
+        description: "Name of the file under which the model will be saved."
         type: string
 
     command: >-

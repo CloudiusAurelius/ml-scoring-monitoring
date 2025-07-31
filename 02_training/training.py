@@ -17,9 +17,11 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
-from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from data_processing.model_data_prep import process_data
+from datetime import datetime
+
 import json
 
 
@@ -60,21 +62,6 @@ def get_project_root() -> str:
     return project_root
 
 
-def process_data(df: pd.DataFrame, target: str) -> pd.DataFrame:
-    """
-    Process the DataFrame to separate features and target variable.
-    Inputs:
-    - df: DataFrame containing the dataset
-    - target: Name of the target variable column
-    Outputs:
-    - X: Features as a NumPy array
-    - y: Target variable as a NumPy array
-    """    
-    X = df.drop(target, axis=1).values    
-    y = df[target].values
-    return X,y
-
-
 def load_dataset(input_file_path: str) -> pd.DataFrame:
     """
     Load the dataset from a CSV file.
@@ -101,35 +88,53 @@ def train_model(X, y) -> LogisticRegression:
     """
     
     # Create a Logistic Regression model
-    model=LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
-                    intercept_scaling=1, l1_ratio=None, max_iter=100,
-                    multi_class='warn', n_jobs=None, penalty='l2',
-                    random_state=0, solver='liblinear', tol=0.0001, verbose=0,
-                    warm_start=False)
+    model=LogisticRegression(
+        C=1.0,
+        class_weight=None,
+        dual=False,
+        fit_intercept=True,
+        intercept_scaling=1,
+        l1_ratio=None,
+        max_iter=100,
+        multi_class='ovr',
+        n_jobs=None,
+        penalty='l2',
+        random_state=0,
+        solver='liblinear',
+        tol=0.0001,
+        verbose=0,
+        warm_start=False
+        )
     
     # Fit the logistic regression to the data
     model.fit(X, y)
     return model
-    
 
 
-
-def go():
+def go(args):
     
     logger.info("Starting model training process")
 
     # Define input variables
-    target = 'exited'
-    logger.info(f"Target variable for training: {target}")
+    # ----------------------
 
+    # Target variable for training
+    label = 'exited'
+    logger.info(f"Target variable for training: {label}")
+
+    # Categorical features for training
+    categorical_features = ['corporation']
+
+    # Input filename for training
     inputfilename = 'finaldata.csv'
     logger.info(f"Input filename for training: {inputfilename}")
    
-    # Get the current working directory and project root    
-    logger.info(f"Project root directory: {project_root}")
+    # Get the current working directory and project root
     project_root = get_project_root()   
+    logger.info(f"Project root directory: {project_root}")
     
     # Load the configuration file
+    # --------------------------------------
     config_filepath = os.path.join(project_root, args.config_file)
     if not os.path.exists(config_filepath):
         logger.error(f"\n***Configuration file {config_filepath} does not exist. Exiting.\n")
@@ -139,6 +144,7 @@ def go():
     logger.info(f"Configuration loaded: {config}")
 
     # Load the dataset        
+    # --------------------------------------
     input_file_path = os.path.join(
         project_root,'01_data',
         config['output_folder_path'],
@@ -150,27 +156,84 @@ def go():
     logger.info(f"Dataset loaded with shape: {df.shape}")    
 
 
+    # Store training information
+    # --------------------------------------
+    logger.info("Storing training information")
+    # Log the number of rows and columns in the training data.
+    train_n_rows = df.shape[0]
+    train_n_columns = df.shape[1]    
+    logger.info(f"Training data:\
+                number of rows: {train_n_rows},\
+                number of columns: {train_n_columns}")    
+
+    # Store feature names
+    feature_names = df.drop([label], axis=1)\
+        .columns\
+        .tolist()
+    logging.info(f"Feature names: {feature_names}")
+
+
+    # Process the data
+    # --------------------------------------
+    logger.info("Processing data")
     # Split the dataset into features and target variable
-    logger.info(f"Splitting dataset into features and target variable: {target}")
-    X,y = process_data(df, target)  
-       
+    logger.info(f"Splitting dataset into features and target variable: {label}.\
+                One-Hot Encoding categorical features: {categorical_features}")    
+    X,y,encoder = process_data(
+        df=df,
+        label=label,
+        categorical_features=categorical_features,
+        training=True,
+        encoder=None
+    )
+
+    logger.info(f"Processed data shapes: X: {X.shape}, y: {y.shape}")  
+    logger.info(f"X preview: {X[:5]}")
+    logger.info(f"y preview: {y[:5]}")
     
     # Train the model
+    # --------------------------------------
     logger.info("Training the Logistic Regression model")
     model = train_model(X, y)
-    logger.info("Model training completed successfully")
-    
+    logger.info("Training completed.")  
+   
 
     # Save the trained model
+    # --------------------------------------
+    logger.info("Saving model to file")
+    
+    # Get the current date and time    
+    current_datetime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    logger.info(f"Current date and time: {current_datetime}")
+
+    # Create a dictionary with model information.
+    model_info = {
+        "name": "logistic_regression_model",
+        "created_at": current_datetime,
+        "model": model,
+        "params": model.get_params(),
+        "features": feature_names,        
+        "categorical_features": categorical_features,
+        "label_column": label,
+        "rows_train": train_n_rows,
+        "columns_train": train_n_columns,
+        "encoder": encoder   
+    }
+    logging.info(f"Saving model with model info: {model_info}")
+
+    # Construct the model file path
     model_file_path = os.path.join(
         project_root,'02_training',
         config['output_model_path'],
         args.output_modelname
         )         
-    with open(model_file_path, 'wb') as f:
-        pickle.dump(model, f)    
-    logger.info(f"Model trained and saved to {model_file_path}")
 
+    # Save model with model info to a pickle file.
+    with open(model_file_path, "wb") as filehandler:
+        pickle.dump(model_info, filehandler)
+    logger.info(f"Model trained and saved to {model_file_path}.")
+    
+    logger.info("-----Model training completed successfully.-----")
 
 
 if __name__ == "__main__":
