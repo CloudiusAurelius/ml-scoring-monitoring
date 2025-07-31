@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 """
+# 01_data/ingestion.py
+
 Ingests data from input files and writes to an output file.
+Duplicates are removed.
+
+Input parameters are provided via command line arguments.
+    - config_file: Path to the configuration file containing input and output folder paths.
+    - output_filename: Name of the output file where the final data will be saved.
 """
 import argparse
 import logging
@@ -174,7 +181,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="A very basic data cleaning")
 
-
     parser.add_argument(
         "--config_file", 
         type=str,
@@ -189,7 +195,6 @@ if __name__ == "__main__":
         required=True
     )
     
-
     args = parser.parse_args()
 
     go(args)

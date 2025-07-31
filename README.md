@@ -22,15 +22,39 @@ conda activate ml_scmon
 
 - Hydra Configuration file in :
 ```config.yaml```
+    - to enable debug with full Hydra errors:
+    ```Bash
+    export HYDRA_FULL_ERROR=1
+    ```
 - MLFlow main code in:
 ```main.py```
 
 
 ## 2. Workflow
 ### Step 1: Data Ingestion
-- all csv files from folder /01_data/practicedata are read and written to:
-- /01_data/ingestdata
-- excute step with
+- all csv files from folder ```/01_data/practicedata``` are read and written to:
+    - ```/01_data/ingestdata/finaldata.csv``` (duplicate records are removed)
+
+- all relevant scripts are stored in ```01_data```
+    - ```conda.yml``` to define the relevant environment
+    - ```MLproject``` to define the execution and input parameters
+    - ```ingestion.py``` to run the operations
+
+- **execute** step with:
 ```Bash
 mlflow run . -P steps="data_ingestion"
+```
+
+### Step 2: Model Training
+- a Logistic Regression model is trained on the data stored in /01_data/ingestdata/finaldata.csv. 
+
+- all relevant scripts are stored in ```02_training```
+    - ```conda.yml``` to define the relevant environment
+    - ```MLproject``` to define the execution and input parameters
+    - ```training.py``` to run the operations
+
+
+- **execute** step with:
+```Bash
+mlflow run . -P steps="model_training"
 ```

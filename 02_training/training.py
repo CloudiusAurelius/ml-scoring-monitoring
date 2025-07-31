@@ -1,3 +1,14 @@
+"""
+# 02_training/training.py
+
+This script trains a Logistic Regression model on the data stored in /01_data/ingestdata/finaldata.csv.
+It reads the configuration from a JSON file, processes the data, trains the model, and
+saves the trained model to a specified output path.
+
+Input parameters are provided via command line arguments.
+    - config_file: Path to the configuration file containing input and output folder paths.
+    - output_modelname: Name of the output file where the trained model will be saved.
+"""
 import argparse
 import logging
 
@@ -166,7 +177,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="A very basic data cleaning")
 
-
     parser.add_argument(
         "--config_file", 
         type=str,
@@ -181,7 +191,6 @@ if __name__ == "__main__":
         required=True
     )
     
-
     args = parser.parse_args()
 
     go(args)

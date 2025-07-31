@@ -12,6 +12,7 @@ mlflow.autolog()
 # Define the steps to be executed in the pipeline
 _steps = [
     "data_ingestion",
+    "model_training",
     #"basic_cleaning",
     #"data_check",
     #"data_split",
