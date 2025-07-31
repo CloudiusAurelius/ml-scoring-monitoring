@@ -19,27 +19,11 @@ import os
 import json
 from datetime import datetime
 
+from utils.common_utilities import get_project_root, load_config
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
-
-
-def load_config(config_file: str) -> dict:
-    """
-    Load configuration from a JSON file.
-    Inputs:
-    - config_file: Path to the configuration file
-    Outputs:
-    - config: Dictionary containing the configuration parameters
-    """
-    if not os.path.exists(config_file):
-        logger.error(f"Configuration file {config_file} does not exist. Exiting.")
-        return {}
-    
-    with open(config_file, 'r') as f:
-        config = json.load(f)
-    
-    return config
 
 
 def load_csv(folder_path: str) -> pd.DataFrame:
@@ -109,12 +93,9 @@ def go(args):
 
     # Ingest data from the input folder, remove duplicates and save it to the output folder
     logger.info("Starting data ingestion process")        
-   
 
     # Get the current working directory and project root
-    cwd = os.getcwd()
-    logger.info(f"Current working directory: {cwd}")
-    project_root = os.path.dirname(cwd)
+    project_root = get_project_root(logger)   
     logger.info(f"Project root directory: {project_root}")
     
     # Load the configuration file
@@ -123,7 +104,7 @@ def go(args):
         logger.error(f"\n***Configuration file {config_filepath} does not exist. Exiting.\n")
         return
     logger.info(f"Loading configuration from: {config_filepath}")    
-    config = load_config(config_filepath)
+    config = load_config(config_filepath, logger)
     logger.info(f"Configuration loaded: {config}")
 
 

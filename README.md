@@ -2,7 +2,7 @@
 Udacity Nanodegree Machine Learning DevOps Engineer - Project 4
 
 
-## O. Overview
+## 0. Overview
 The project comprises the following 5 steps:
 - 1. Data Ingestion
 - 2. Training, Scoring, Deploying

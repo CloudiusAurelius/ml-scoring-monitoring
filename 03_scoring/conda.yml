@@ -1,0 +1,14 @@
+name: data_ingestion
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pip  
+  - pandas
+  - numpy=1.23.5
+  - flask
+  - scikit-learn  
+  - pip:
+      - mlflow==2.8.1
+

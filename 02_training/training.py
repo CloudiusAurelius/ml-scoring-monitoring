@@ -12,54 +12,25 @@ Input parameters are provided via command line arguments.
 import argparse
 import logging
 
-from flask import Flask, session, jsonify, request
+
 import pandas as pd
 import numpy as np
 import pickle
 import os
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from data_processing.model_data_prep import process_data
+import json
 from datetime import datetime
 
-import json
+from sklearn.linear_model import LogisticRegression
+
+from data_processing.model_data_prep import process_data
+from utils.common_utilities import get_project_root, load_config
+
 
 
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
 
-
-
-def load_config(config_file: str) -> dict:
-    """
-    Load configuration from a JSON file.
-    Inputs:
-    - config_file: Path to the configuration file
-    Outputs:
-    - config: Dictionary containing the configuration parameters
-    """
-    if not os.path.exists(config_file):
-        logger.error(f"Configuration file {config_file} does not exist. Exiting.")
-        return {}
-    
-    with open(config_file, 'r') as f:
-        config = json.load(f)
-    
-    return config
-
-def get_project_root() -> str:
-    """
-    Get the project root directory.
-    Inputs:
-    - None
-    Outputs:
-    - project_root: Path to the project root directory
-    """
-    cwd = os.getcwd()
-    logger.info(f"Current working directory: {cwd}")
-    project_root = os.path.dirname(cwd)
-    return project_root
 
 
 def load_dataset(input_file_path: str) -> pd.DataFrame:
@@ -77,12 +48,12 @@ def load_dataset(input_file_path: str) -> pd.DataFrame:
     return df
 
 
-def train_model(X, y) -> LogisticRegression:
+def train_model(X: np.ndarray, y: np.ndarray) -> LogisticRegression:
     """
     Train a Logistic Regression model.
     Inputs:
-    - X: Features
-    - y: Target variable
+    - X: Features (Numpy array)
+    - y: Target variable (Numpy array)
     Outputs:
     - model: Trained Logistic Regression model
     """
@@ -130,7 +101,7 @@ def go(args):
     logger.info(f"Input filename for training: {inputfilename}")
    
     # Get the current working directory and project root
-    project_root = get_project_root()   
+    project_root = get_project_root(logger)   
     logger.info(f"Project root directory: {project_root}")
     
     # Load the configuration file
@@ -140,7 +111,7 @@ def go(args):
         logger.error(f"\n***Configuration file {config_filepath} does not exist. Exiting.\n")
         return
     logger.info(f"Loading configuration from: {config_filepath}")    
-    config = load_config(config_filepath)
+    config = load_config(config_filepath, logger)
     logger.info(f"Configuration loaded: {config}")
 
     # Load the dataset        
@@ -238,7 +209,7 @@ def go(args):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="A very basic data cleaning")
+    parser = argparse.ArgumentParser(description="Train a Logistic Regression model on the dataset.")
 
     parser.add_argument(
         "--config_file", 
