@@ -212,3 +212,4 @@ _Archive/
 *.csv
 ingested_files.txt
 mlruns/
+outputs/
