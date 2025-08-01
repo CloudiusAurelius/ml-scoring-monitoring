@@ -1,0 +1,26 @@
+name: reporting
+version: 1.0
+description: "Generate a confusion matrix using the test data and the deployed model."
+conda_env: conda.yml
+
+entry_points:
+  main:
+    parameters:
+
+      config_file:
+        description: "Name of the json configuration file containing file settings."
+        type: string
+
+      input_data:
+        description: "Name of the file containing the test data."
+        type: string
+ 
+      input_modelinfo:
+        description: "Name of the file containing the trained model information."
+        type: string     
+
+    command: >-
+        python reporting.py  --config_file {config_file}\
+                             --input_data {input_data}\
+                             --input_modelinfo {input_modelinfo}
+                             

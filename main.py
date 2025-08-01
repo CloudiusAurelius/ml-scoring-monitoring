@@ -15,6 +15,8 @@ _steps = [
     "model_training",
     "model_scoring",
     "model_deployment",
+    "diagnostics",
+    "reporting",
     #"basic_cleaning",
     #"data_check",
     #"data_split",
@@ -108,6 +110,20 @@ def go(config: DictConfig):
                     "config_file": config["main"]["config_file"],
                     "target_data": config["data_ingestion"]["output_filename"],
                     "input_modelinfo": config["model_training"]["output_modelname"]                    
+                }
+            )
+
+        if "reporting" in active_steps:
+            # Generate a confusion matrix using the test data and the deployed model
+            _ = mlflow.run(
+                os.path.join(hydra.utils.get_original_cwd(), "06_reporting"),
+                entry_point="main",
+                #version='main',
+                env_manager="conda",
+                parameters={
+                    "config_file": config["main"]["config_file"],
+                    "input_data": config["model_scoring"]["input_data"],
+                    "input_modelinfo": config["model_training"]["output_modelname"]
                 }
             )                
 

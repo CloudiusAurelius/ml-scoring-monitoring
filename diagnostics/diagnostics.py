@@ -15,6 +15,7 @@ import numpy as np
 import timeit
 import os
 import json
+import argparse
 
 import logging
 import subprocess
@@ -39,6 +40,9 @@ def model_predictions(df: pd.DataFrame, model_file_path: str) -> list:
     Inputs:
     - df: DataFrame containing the data to score
     - model_file_path: Path to the trained model file
+    Outputs:
+    - y_pred: List of predictions made by the model
+    - y_test: List of true labels (if available)
     """
     
     # Load the model and encoder
@@ -64,9 +68,10 @@ def model_predictions(df: pd.DataFrame, model_file_path: str) -> list:
         encoder=encoder
     )
 
-    logger.info(f"Processed data shapes: X: {X_test.shape}, y: {y_test.shape}")  
-    logger.info(f"X preview: {X_test[:5]}")
-    logger.info(f"y preview: {y_test[:5]}")
+    logger.info(f"Processed data shapes: X: {X_test.shape}")  
+    logger.info(f"X_test preview: {X_test[:5]}")
+    logger.info(f"y_test preview: {y_test[:5]}")
+    
 
 
     # Score the data with the loaded model
@@ -82,7 +87,7 @@ def model_predictions(df: pd.DataFrame, model_file_path: str) -> list:
         logger.error("Length of predictions does not match length of test data.")
         return []
 
-    return y_pred.tolist()  # Convert to list for consistency
+    return y_pred.tolist(), y_test.tolist()  # Convert to list for consistency
 
 ##################Function to get summary statistics
 def dataframe_summary(df: pd.DataFrame) -> list:
@@ -131,7 +136,7 @@ def missing_values_percent(df: pd.DataFrame) -> list:
     
     for column in df.columns:
         if total_rows > 0:            
-            percent_missing = df[column].isnull().mean() * 100
+            percent_missing = df[column].isna().sum() / total_rows * 100
             missing_values.append(percent_missing)
         else:
             logger.warning(f"DataFrame is empty. Cannot calculate missing values for column {column}.")
@@ -268,7 +273,7 @@ def go(args):
     # Model predictions
     # --------------------------------------  
     model_filepath = os.path.join(prod_deployment_path, args.input_modelinfo)
-    y_pred = model_predictions(df, model_filepath)
+    y_pred,_ = model_predictions(df, model_filepath)
     logger.info(f"Model predictions: {y_pred[:5]}")  # Log first 5 predictions
 
     # Dataframe summary
@@ -300,8 +305,7 @@ def go(args):
 
 
 
-if __name__ == "__main__":
-    import argparse
+if __name__ == "__main__":    
     
     parser = argparse.ArgumentParser(description="Deploy the trained model and related files.")
     parser.add_argument(

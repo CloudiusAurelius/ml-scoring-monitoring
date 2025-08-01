@@ -109,7 +109,7 @@ def go(args):
         project_root,'01_data',
         config['test_data_path'],
         args.input_data
-        )       
+    )       
     
     logger.info(f"Loading dataset from: {input_file_path}")
     df = load_dataset(input_file_path, logger)

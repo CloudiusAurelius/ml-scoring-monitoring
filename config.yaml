@@ -17,5 +17,6 @@ model_scoring:
   output_score_filename: "latestscore.txt"
 model_deployment:  
 diagnostics:
+reporting:
   
   
