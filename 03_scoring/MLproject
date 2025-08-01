@@ -1,4 +1,6 @@
-name: training
+name: scoring
+version: 1.0
+description: "Scoring of the model and data"
 conda_env: conda.yml
 
 entry_points:

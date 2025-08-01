@@ -1,4 +1,6 @@
-name: training
+name: diagnostics
+version: 1.0
+description: "Diagnostics of the model and data"
 conda_env: conda.yml
 
 entry_points:
@@ -7,9 +9,19 @@ entry_points:
 
       config_file:
         description: "Name of the json configuration file containing file settings."
+        type: string
+
+      target_data:
+        description: "Name of the file containing the data to be processed."
+        type: string
+
+      input_modelinfo:
+        description: "Name of the file containing the trained model information."
         type: string     
 
     command: >-
-        python deployment.py  --config_file {config_file}
+        python diagnostics.py  --config_file {config_file}\
+                              --target_data {target_data}\
+                              --input_modelinfo {input_modelinfo}
                          
                        

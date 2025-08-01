@@ -28,9 +28,7 @@ _steps = [
 @hydra.main(config_name='config')
 def go(config: DictConfig):
 
-    # Setup the wandb experiment. All runs will be grouped under this name
-    #os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
-    #os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
+    
 
     # Steps to execute
     steps_par = config['main']['steps']
@@ -77,7 +75,7 @@ def go(config: DictConfig):
                 parameters={
                     "config_file": config["main"]["config_file"],
                     "input_data": config["model_scoring"]["input_data"],
-                    "input_modelinfo": config["model_scoring"]["input_modelinfo"],
+                    "input_modelinfo": config["model_training"]["output_modelname"],
                     "output_score_filename": config["model_scoring"]["output_score_filename"]
                 }
             )           
@@ -96,7 +94,22 @@ def go(config: DictConfig):
                     "output_modelname": config["model_training"]["output_modelname"],
                     "output_score_filename": config["model_scoring"]["output_score_filename"]
                 }
-            )           
+            )
+
+
+        if "diagnostics" in active_steps:
+            # Train the model using the ingested data
+            _ = mlflow.run(
+                os.path.join(hydra.utils.get_original_cwd(), "05_diagnostics"),
+                entry_point="main",
+                #version='main',
+                env_manager="conda",
+                parameters={
+                    "config_file": config["main"]["config_file"],
+                    "target_data": config["data_ingestion"]["output_filename"],
+                    "input_modelinfo": config["model_training"]["output_modelname"]                    
+                }
+            )                
 
 
 if __name__ == "__main__":

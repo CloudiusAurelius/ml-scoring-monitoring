@@ -1,4 +1,6 @@
 name: training
+version: 1.0
+description: "Training of the model"
 conda_env: conda.yml
 
 entry_points:

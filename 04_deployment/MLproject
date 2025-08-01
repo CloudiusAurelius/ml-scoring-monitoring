@@ -1,4 +1,6 @@
-name: training
+name: deployment
+version: 1.0
+description: "Deployment of the model and scoring of the data"
 conda_env: conda.yml
 
 entry_points:

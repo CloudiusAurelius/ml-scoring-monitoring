@@ -8,7 +8,7 @@ main:
   config_file: "config.json"
 data_ingestion:  
   output_filename: "finaldata.csv"
-  ingest_files_record: "ingested_files.txt" #
+  ingest_files_record: "ingested_files.txt"
 model_training:  
   output_modelname: "trainedmodel.pkl"
 model_scoring:  
