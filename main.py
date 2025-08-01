@@ -84,7 +84,7 @@ def go(config: DictConfig):
         if "model_deployment" in active_steps:
             # Train the model using the ingested data
             _ = mlflow.run(
-                os.path.join(hydra.utils.get_original_cwd(), "03_scoring"),
+                os.path.join(hydra.utils.get_original_cwd(), "04_deployment"),
                 entry_point="main",
                 #version='main',
                 env_manager="conda",

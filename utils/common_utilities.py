@@ -2,6 +2,8 @@
 # utils/common_utilities.py
 
 This module contains common utility functions used across different scripts.
+It includes functions for loading configuration files, datasets, and models,
+as well as getting the project root directory.
 """
 
 import logging
@@ -20,7 +22,7 @@ def load_config(config_file: str, logger: logging.Logger) -> dict:
     - config: Dictionary containing the configuration parameters
     """
     if not os.path.exists(config_file):
-        logger.error(f"Configuration file {config_file} does not exist. Exiting.")
+        logger.error(f"*** Configuration file {config_file} does not exist. Exiting.")
         return {}
     
     with open(config_file, 'r') as f:
