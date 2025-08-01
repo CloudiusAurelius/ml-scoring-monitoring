@@ -21,7 +21,8 @@ from diagnostics.diagnostics\
            dataframe_summary,\
            execution_time,\
            check_outdated_packages,\
-           missing_values_percent 
+           missing_values_percent,\
+           compute_model_metrics
 
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
@@ -39,7 +40,7 @@ project_root = get_project_root(logger)
 logger.info(f"Project root directory: {project_root}")
 
 # Load configuration
-config_filepath = os.path.join(project_root, args.config_file)
+config_filepath = os.path.join(project_root, 'config.json')
 config = load_config(config_filepath, logger)
 logger.info(f"Configuration loaded: {config}")
 
@@ -47,6 +48,22 @@ logger.info(f"Configuration loaded: {config}")
 dataset_csv_path = os.path.join(
     project_root,'01_data'
 )       
+
+# Set filepath of ingested data and load data
+ingested_data_file_path = os.path.join(
+        dataset_csv_path,
+        config["output_folder_path"],
+        'finaldata.csv'
+)
+df_ingested = load_dataset(ingested_data_file_path, logger)
+
+# Set filepath of test data and load data
+test_data_file_path = os.path.join(
+        dataset_csv_path,
+        config["test_data_path"],
+        'testdata.csv'
+)
+df_test = load_dataset(test_data_file_path, logger)
 
 # Set the model path
 prod_deployment_path = os.path.join(
@@ -58,12 +75,7 @@ model_filepath = os.path.join(prod_deployment_path, 'trained_model.pkl')
 logger.info(f"Model file path: {model_filepath}")
 
 
-# Set filepath of ingested data
-ingested_data_file_path = os.path.join(
-        dataset_csv_path,
-        config["output_folder_path"],
-        'finaldata.csv'
-)
+
 
 
 #######################Prediction Endpoint
@@ -85,7 +97,7 @@ def predict():
     logger.info(f"Dataset loaded from {data_file_path} with shape {df.shape}")
 
     # Make predictions
-    logger.info("Making predictions on the test data and extracting the true labels")
+    logger.info("Making predictions on the input data and extracting the true labels")
     y_pred, y_true = model_predictions(df, model_filepath)
     
     return jsonify({"predictions": y_pred, "true_labels": y_true})
@@ -94,8 +106,28 @@ def predict():
 #######################Scoring Endpoint
 @app.route("/scoring", methods=['GET','OPTIONS'])
 def stats():        
-    #check the score of the deployed model
-    return #add return value (a single F1 score number)
+    """
+    Check the f1 score of the deployed model on the test dataset.
+    """
+    
+    # Make prediction with deployed model on test data
+    logger.info("Scoring the deployed model on the test data")
+    y_pred, y_true = model_predictions(df_test, model_filepath)
+    
+    # Convert to numpy arrays for metric calculation
+    logger.info("Converting predictions and true labels to numpy arrays")
+    y_true_np= np.array(y_true)
+    y_pred_np= np.array(y_pred)
+
+    # Compute model metrics
+    # ---------------------------------------   
+    logger.info("Computing model metrics")
+    _,\
+    _,\
+    fbeta,\
+    _ = compute_model_metrics(y_true_np, y_pred_np)
+
+    return jsonify({"f1_score": fbeta})#add return value (a single F1 score number)
 
 
 #######################Summary Statistics Endpoint
@@ -105,35 +137,33 @@ def stats():
     Check means, medians, and modes for each column in the ingested data.
     """   
 
-    # Load the dataset
-    df = load_dataset(ingested_data_file_path, logger)
-
     # Compute summary statistics
-    summary_stats = dataframe_summary(df)
+    logger.info("Calculating summary statistics for the ingested data")
+    summary_stats = dataframe_summary(df_ingested)
     
     logger.info(f"Summary statistics calculated: {summary_stats}")
     return jsonify(summary_stats)  
-
-
-
-    return #return a list of all calculated summary statistics
+    
 
 #######################Diagnostics Endpoint
 @app.route("/diagnostics", methods=['GET','OPTIONS'])
-def stats():        
+def stats():
+    """
+    Check dependencies, timing and percent NA values in the ingested data.
+    """        
 
     # Check depdenencies
     dependencies_diagnosis=check_outdated_packages(ingested_data_file_path)
 
     # Check timing
-    execution_time=execution_time()
+    run_time=execution_time()
 
     # Check missing values percent
     missing_values_result = missing_values_percent(ingested_data_file_path)
 
     return jsonify({
-        "execution_time": execution_time,
-        "dependencies_diagnosis": dependencies_diagnosis
+        "execution_time": run_time,
+        "dependencies_diagnosis": dependencies_diagnosis,
         "missing_values_percent": missing_values_result
     }) #add return value for all diagnostics
    

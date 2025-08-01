@@ -27,6 +27,12 @@ from utils.common_utilities\
            load_dataset,\
            load_model
 
+from sklearn.metrics\
+    import fbeta_score,\
+           precision_score,\
+           recall_score,\
+           roc_auc_score
+
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
@@ -229,6 +235,31 @@ def check_outdated_packages() -> pd.DataFrame:
     df.columns = ['name', 'current_version', 'latest_version']
 
     return df
+
+
+
+
+def compute_model_metrics(y: np.ndarray, preds: np.ndarray) -> tuple:
+    """
+    Validates the trained machine learning model using precision, recall, and F1.
+
+    Inputs
+    ------
+    y : np.array
+        Known labels, binarized.
+    preds : np.array
+        Predicted labels, binarized.
+    Returns
+    -------
+    precision : float
+    recall : float
+    fbeta : float
+    """
+    fbeta = fbeta_score(y, preds, beta=1, zero_division=1)
+    precision = precision_score(y, preds, zero_division=1)
+    recall = recall_score(y, preds, zero_division=1)
+    roc_auc = roc_auc_score(y, preds)
+    return precision, recall, fbeta, roc_auc
 
 
 
