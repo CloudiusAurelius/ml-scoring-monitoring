@@ -6,14 +6,19 @@ entry_points:
     parameters:
 
       config_file:
-        description: "Name of the json configuration file containing the data ingestion settings."
+        description: "Name of the json configuration file containing file settings."
         type: string      
 
       output_filename:
         description: "Name of the output file where the final data will be saved."
         type: string
 
+      ingest_files_record:
+        description: "Name of the file which contains the record of the ingested files."
+        type: string
+
     command: >-
         python ingestion.py  --config_file {config_file} \
-                             --output_filename {output_filename} 
+                             --output_filename {output_filename}\
+                             --ingest_files_record {ingest_files_record}
                        

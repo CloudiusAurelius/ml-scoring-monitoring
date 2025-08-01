@@ -13,6 +13,8 @@ mlflow.autolog()
 _steps = [
     "data_ingestion",
     "model_training",
+    "model_scoring",
+    "model_deployment",
     #"basic_cleaning",
     #"data_check",
     #"data_split",
@@ -46,7 +48,7 @@ def go(config: DictConfig):
                 #version='main',
                 env_manager="conda",
                 parameters={
-                    "config_file": config["data_ingestion"]["config_file"],
+                    "config_file": config["main"]["config_file"],
                     "output_filename": config["data_ingestion"]["output_filename"]
                 }
             )
@@ -60,7 +62,7 @@ def go(config: DictConfig):
                 #version='main',
                 env_manager="conda",
                 parameters={
-                    "config_file": config["model_training"]["config_file"],
+                    "config_file": config["main"]["config_file"],
                     "output_modelname": config["model_training"]["output_modelname"]
                 }
             )
@@ -73,7 +75,7 @@ def go(config: DictConfig):
                 #version='main',
                 env_manager="conda",
                 parameters={
-                    "config_file": config["model_scoring"]["config_file"],
+                    "config_file": config["main"]["config_file"],
                     "input_data": config["model_scoring"]["input_data"],
                     "input_modelinfo": config["model_scoring"]["input_modelinfo"],
                     "output_score_filename": config["model_scoring"]["output_score_filename"]
@@ -89,7 +91,10 @@ def go(config: DictConfig):
                 #version='main',
                 env_manager="conda",
                 parameters={
-                    "config_file": config["model_deployment"]["config_file"]
+                    "config_file": config["main"]["config_file"],
+                    "ingest_files_record": config["data_ingestion"]["ingest_files_record"],
+                    "output_modelname": config["model_training"]["output_modelname"],
+                    "output_score_filename": config["model_scoring"]["output_score_filename"]
                 }
             )           
 

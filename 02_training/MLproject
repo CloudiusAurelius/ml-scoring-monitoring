@@ -6,7 +6,7 @@ entry_points:
     parameters:
 
       config_file:
-        description: "Name of the json configuration file containing the data ingestion settings."
+        description: "Name of the json configuration file containing file settings."
         type: string      
 
       output_modelname:

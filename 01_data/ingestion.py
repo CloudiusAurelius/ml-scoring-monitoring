@@ -149,7 +149,7 @@ def go(args):
     
 
     # Save a record of the ingested filenames
-    record_file_path = os.path.join(output_folder_path, 'ingested_files.txt')
+    record_file_path = os.path.join(output_folder_path, args.ingest_files_record)
     with open(record_file_path, 'w') as f:
         [f.write(f"{file}\n") for file in all_files]
         
@@ -175,6 +175,14 @@ if __name__ == "__main__":
         help="Name of the output file where the final data will be saved.",
         required=True
     )
+
+    parser.add_argument(
+        "--ingest_files_record", 
+        type=str,
+        help="Name of the file which contains the record of the ingested files.",
+        required=True
+    )
+    
     
     args = parser.parse_args()
 

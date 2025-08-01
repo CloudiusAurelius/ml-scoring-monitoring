@@ -13,25 +13,6 @@ import os
 import pandas as pd
 import pickle
 
-def load_config(config_file: str, logger: logging.Logger) -> dict:
-    """
-    Load configuration from a JSON file.
-    Inputs:
-    - config_file: Path to the configuration file
-    Outputs:
-    - config: Dictionary containing the configuration parameters
-    """
-    if not os.path.exists(config_file):
-        logger.error(f"*** Configuration file {config_file} does not exist. Exiting.")
-        return {}
-    
-    with open(config_file, 'r') as f:
-        config = json.load(f)
-    
-    return config
-
-
-
 def get_project_root(logger: logging.Logger) -> str:
     """
     Get the project root directory.
@@ -44,6 +25,26 @@ def get_project_root(logger: logging.Logger) -> str:
     logger.info(f"Current working directory: {cwd}")
     project_root = os.path.dirname(cwd)
     return project_root
+
+
+def load_config(config_file: str, logger: logging.Logger) -> dict:
+    """
+    Load configuration from a JSON file.
+    Inputs:
+    - config_file: Path to the configuration file
+    Outputs:
+    - config: Dictionary containing the configuration parameters
+    """
+    if not os.path.exists(config_file):
+        logger.error(f"*** Configuration file {config_file} does not exist. Exiting.")
+        return {}
+    
+    logger.info(f"Loading configuration from: {config_file}")    
+    with open(config_file, 'r') as f:
+        config = json.load(f)
+    
+    return config
+
 
 
 def load_dataset(input_file_path: str, logger: logging.Logger) -> pd.DataFrame:

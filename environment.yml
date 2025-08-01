@@ -7,8 +7,7 @@ dependencies:
   - jupyterlab  
   - scikit-learn  
   - pandas
-  - numpy    
-  - fastapi   
+  - numpy      
   - requests
   - pytest  
   - pip

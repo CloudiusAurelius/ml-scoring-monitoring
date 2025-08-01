@@ -10,6 +10,7 @@ into the production deployment directory.
 
 import logging
 import os
+import argparse
 
 
 from utils.common_utilities\
@@ -48,11 +49,7 @@ def go(args):
     logger.info(f"Project root directory: {project_root}")
     
     # Load configuration
-    config_filepath = os.path.join(project_root, args.config_file)
-    if not os.path.exists(config_filepath):
-        logger.error(f"\n***Configuration file {config_filepath} does not exist. Exiting.\n")
-        return
-    logger.info(f"Loading configuration from: {config_filepath}")    
+    config_filepath = os.path.join(project_root, args.config_file)    
     config = load_config(config_filepath, logger)
     logger.info(f"Configuration loaded: {config}")
     
@@ -64,7 +61,7 @@ def go(args):
         project_root,
         '02_training',
         config['output_model_path'],
-        'trainedmodel.pkl'
+        args.output_modelname
     )
     logger.info(f"Model file path: {latest_model_file}")
     
@@ -74,7 +71,7 @@ def go(args):
         project_root,
         '02_training',
         config['output_model_path'],
-        'latestscore.txt'
+        args.output_score_filename
     )
     logger.info(f"Latest score file: {latest_score_file}")
 
@@ -83,7 +80,7 @@ def go(args):
         project_root,
         '01_data',
         config['output_folder_path'],
-        'ingested_files.txt'
+        args.ingest_files_record
     )
     logger.info(f"Ingest file record: {ingest_files_record}")
 
@@ -117,14 +114,34 @@ def go(args):
     # --------------------------------------
     logger.info("-----Deployment process completed.-----")
 
-if __name__ == "__main__":
-    import argparse
+if __name__ == "__main__":    
     
     parser = argparse.ArgumentParser(description="Deploy the trained model and related files.")
     parser.add_argument(
         "--config_file",
         type=str,
         help="Path to the configuration file containing input and output folder paths.",
+        required=True
+    )
+
+    parser.add_argument(
+        "--ingest_files_record",
+        type=str,
+        help="Name of the file which contains the record of the ingested files.",
+        required=True
+    )
+
+    parser.add_argument(
+        "--output_modelname",
+        type=str,
+        help="Name of the output model file to be copied.",
+        required=True
+    )
+
+    parser.add_argument(
+        "--output_score_filename",
+        type=str,
+        help="Name of the output score file to be copied.",
         required=True
     )
 

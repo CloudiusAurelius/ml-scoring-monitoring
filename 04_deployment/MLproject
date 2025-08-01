@@ -6,10 +6,26 @@ entry_points:
     parameters:
 
       config_file:
-        description: "Name of the json configuration file containing the data ingestion settings."
+        description: "Name of the json configuration file containing file settings."
+        type: string
+
+      ingest_files_record:
+        description: "Name of the file which contains the record of the ingested files."
+        type: string
+
+      output_modelname:
+        description: "Name of the output model file to be copied."
+        type: string
+
+      output_score_filename:
+        description: "Name of the output score file to be copied."
         type: string     
 
     command: >-
-        python deployment.py  --config_file {config_file}
+        python deployment.py  --config_file {config_file}\
+                                --ingest_files_record {ingest_files_record}\
+                                --output_modelname {output_modelname}\
+                                --output_score_filename {output_score_filename}
                          
                        
+
