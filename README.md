@@ -68,16 +68,17 @@ Reusable code for configuration, model loading, and data processing is in:
 ### Step 3: Model Scoring
 
 - Scores test data using the trained model.
-- Scripts: `03_scoring/training.py`
+- Scripts: `03_scoring/scoring.py`
 - Run:
     ```bash
     mlflow run . -P steps="model_scoring"
     ```
+- The result of the scoring is stored in file `latestscore.txt` in the respective model folder
 
 ### Step 4: Model Deployment
 
 - Moves model files to the deployment folder.
-- Scripts: `04_deployment/training.py`
+- Scripts: `04_deployment/deployment.py`
 - Run:
     ```bash
     mlflow run . -P steps="model_deployment"
@@ -86,6 +87,7 @@ Reusable code for configuration, model loading, and data processing is in:
 ## Diagnostics
 
 - Scripts in `diagnostics/` check data integrity, model predictions, and system performance (e.g., missing values, execution time, dependencies).
+- Scripts: `diagnostics/diagnostics.py`
 - Run:
     ```bash
     mlflow run . -P steps="diagnostics"
@@ -93,11 +95,13 @@ Reusable code for configuration, model loading, and data processing is in:
 
 ## Reporting
 
-- Scripts in `reporting/` generate model performance reports and statistics.
+- Scripts in `06_reporting/` generate model performance reports and statistics.
+- Scripts: `06_reporting/reporting.py`, `06_reporting/app.py`, `06_reporting/apicalls.py`
 - Run:
     ```bash
     mlflow run . -P steps="reporting"
     ```
+- Output files are stored as `apireturns.txt` and `confusionmatrix.png` in the respective model folder
 
 ## API Usage
 
@@ -113,6 +117,15 @@ Reusable code for configuration, model loading, and data processing is in:
     - `/summarystats` — Summary statistics for the ingested data
     - `/diagnostics` — Model, Data, Systems diagnostics 
     
+
+## Running the full process
+The project root contains the script:
+- `fullprocess.py`
+It performs two checks:
+- 1. check for new data in source folder
+- 2. check for model drift
+Depending on the result of the checks, a new training and deployment chain will be triggered.
+
 
 ## Notes
 
