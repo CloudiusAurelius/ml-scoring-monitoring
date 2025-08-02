@@ -151,7 +151,8 @@ if fbeta_value_new is None:
     raise ValueError(f"No 'fbeta:' line found in {score_filepath}")
 if line.startswith("fbeta:"):
     fbeta_value_new = float(line.split(":")[1].strip())
-    
+
+
 # read the scores from new score file
 logging.info("Checking for model drift.")
 logging.info("-----------------------------------")
@@ -178,7 +179,7 @@ if model_drift_detected:
     logging.info("Re-deploying the model due to detected drift.")
     subprocess.run([
         "mlflow", "run", ".", 
-        "-P", "deployment",    
+        "-P", "steps=deployment",    
     ])
 
     ##################Diagnostics and reporting
