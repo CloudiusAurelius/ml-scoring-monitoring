@@ -1,115 +1,117 @@
-# ML-scoring-monitoring
-Udacity Nanodegree Machine Learning DevOps Engineer - Project 4
+# ML Scoring & Monitoring
 
+Udacity Nanodegree: Machine Learning DevOps Engineer — Project 4
 
-## 0. Overview
-The project comprises the following 5 steps:
-- 1. Data Ingestion
-- 2. Training, Scoring, Deploying
-- 3. Diagnostics
-- 4. Reporting
-- 5. Process Automation
+## Overview
 
-## 1. Setup
+This project implements an end-to-end ML pipeline with monitoring and automation. The workflow includes:
 
-- the conda environment was set up by:
-    - creating the file _environment.yml_ and activating the environment with:
-```Bash		
-conda env create -f environment.yml	
-conda activate ml_scmon
+1. **Data Ingestion**
+2. **Model Training, Scoring, and Deployment**
+3. **Diagnostics**
+4. **Reporting**
+5. **Process Automation**
+
+## Setup
+
+- **Conda Environment:**  
+    Create and activate the environment:
+    ```bash
+    conda env create -f environment.yml
+    conda activate ml_scmon
+    ```
+
+- **Configuration:**  
+    - Hydra config: `config.yaml`  
+        Enable debug mode:
+        ```bash
+        export HYDRA_FULL_ERROR=1
+        ```
+    - Main MLflow code: `main.py`
+
+## Workflow
+
+To run the complete training, deployment and reporting pipeline:
+```bash
+./run_pipeline.sh
 ```
 
-
-- Hydra Configuration file in :
-```config.yaml```
-    - to enable debug with full Hydra errors:
-    ```Bash
-    export HYDRA_FULL_ERROR=1
-    ```
-- MLFlow main code in:
-```main.py```
-
-
-## 2. Workflow
-
-The entire pipeline can be executed with:
-```Bash
-./run_pipeline.sh
-``` 
-
-*Common Scripts* which are shared accross different steps are stored in the following locations: 
-- ```utils```:
-    - load of configuration files, models etc.
-- ```data processing```:
-    - data preparation steps necessary for training and prediction of models
+**Common Scripts:**  
+Reusable code for configuration, model loading, and data processing is in:
+- `utils/` — configuration, model utilities
+- `data processing/` — data preparation for training and inference
+- `diagnostics/` - data, model and system monitoring (see below)
 
 ### Step 1: Data Ingestion
-- all csv files from folder ```/01_data/practicedata``` are read and written to:
-    - ```/01_data/ingestdata/finaldata.csv``` (duplicate records are removed)
 
-- the relevant scripts are stored in: ```01_data```
-    - ```conda.yml``` to define the relevant environment
-    - ```MLproject``` to define the execution and input parameters
-    - ```ingestion.py``` to run the operations. 
-- additional functionalities are used from the *Common Scripts* (see above)
-
-- **execute** step with:
-```Bash
-mlflow run . -P steps="data_ingestion"
-```
+- Reads all CSVs from `/01_data/practicedata`, removes duplicates, and writes to `/01_data/ingestdata/finaldata.csv`.
+- Scripts: `01_data/ingestion.py`, `conda.yml`, `MLproject`
+- Run:
+    ```bash
+    mlflow run . -P steps="data_ingestion"
+    ```
 
 ### Step 2: Model Training
-- a Logistic Regression model is trained on the data stored in /01_data/ingestdata/finaldata.csv. 
 
-- the relevant scripts are stored in ```02_training```
-    - ```conda.yml``` to define the relevant environment
-    - ```MLproject``` to define the execution and input parameters
-    - ```training.py``` to run the operations
-- additional functionalities are used from the *Common Scripts* (see above)
-
-
-- **execute** step with:
-```Bash
-mlflow run . -P steps="model_training"
-```
-
+- Trains a Logistic Regression model on `/01_data/ingestdata/finaldata.csv`.
+- Scripts: `02_training/training.py`, `conda.yml`, `MLproject`
+- Run:
+    ```bash
+    mlflow run . -P steps="model_training"
+    ```
 
 ### Step 3: Model Scoring
-- using the model stored in /01_data/ingestdata/finaldata.csv to score a test dataset
 
-- the relevant scripts are stored in ```03_scoring```
-    - ```conda.yml``` to define the relevant environment
-    - ```MLproject``` to define the execution and input parameters
-    - ```training.py``` to run the operations
-- additional functionalities are used from the *Common Scripts* (see above)
-
-
-- **execute** step with:
-```Bash
-mlflow run . -P steps="model_scoring"
-```
-
+- Scores test data using the trained model.
+- Scripts: `03_scoring/training.py`, `conda.yml`, `MLproject`
+- Run:
+    ```bash
+    mlflow run . -P steps="model_scoring"
+    ```
 
 ### Step 4: Model Deployment
-- transfer of files to the deployment folder
 
-- the relevant scripts are stored in ```04_deployment```
-    - ```conda.yml``` to define the relevant environment
-    - ```MLproject``` to define the execution and input parameters
-    - ```training.py``` to run the operations
-- additional functionalities are used from the *Common Scripts* (see above)
+- Moves model files to the deployment folder.
+- Scripts: `04_deployment/training.py`, `conda.yml`, `MLproject`
+- Run:
+    ```bash
+    mlflow run . -P steps="model_deployment"
+    ```
 
+## Diagnostics
 
-- **execute** step with:
-```Bash
-mlflow run . -P steps="model_deployment"
-```
+- Scripts in `diagnostics/` check data integrity, model predictions, and system performance (e.g., missing values, execution time, dependencies).
+- Run:
+    ```bash
+    mlflow run . -P steps="diagnostics"
+    ```
 
-### Diagnostics
+## Reporting
 
+- Scripts in `reporting/` generate model performance reports and statistics.
+- Reports are available after running the API.
+- Run:
+    ```bash
+    mlflow run . -P steps="reporting"
+    ```
 
-### Reporting
-Run api with
-```Bash
-python app.py
-```
+## API Usage
+
+- The API (`app.py`) exposes endpoints for predictions and diagnostics.
+- Start the server:
+    ```bash
+    python app.py
+    ```
+- Endpoints:
+    - `/prediction` — Model predictions
+    - `/scoring` — Scoring metrics
+    - `/summarystats` — Summary statistics for the ingested data
+    - `/diagnostics` — Model, Data, Systems diagnostics 
+    
+
+## Notes
+
+- Activate the conda environment before running scripts.
+- Enable Hydra full error messages for troubleshooting.
+- See each directory for detailed scripts and documentation.
+

@@ -1,10 +1,6 @@
+#!/usr/bin/env python3
 
 
-#import training
-#import scoring
-#import deployment
-#import diagnostics
-#import reporting
 import subprocess
 import logging
 import os

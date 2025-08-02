@@ -1,10 +1,10 @@
 prediction:
 {
   "predictions": [
+    1,
+    1,
+    1,
     0,
-    1,
-    1,
-    1,
     1
   ],
   "true_labels": [
@@ -27,27 +27,27 @@ summarystats:
 [
   {
     "column": "lastmonth_activity",
-    "mean": 165.65384615384616,
-    "median": 73.0,
-    "std_dev": 284.0332293669447
+    "mean": 5625.923076923077,
+    "median": 425.0,
+    "std_dev": 19444.774621317832
   },
   {
     "column": "lastyear_activity",
-    "mean": 1502.923076923077,
-    "median": 955.0,
-    "std_dev": 2192.6449584568304
+    "mean": 763.5384615384615,
+    "median": 97.5,
+    "std_dev": 2016.6093569309696
   },
   {
     "column": "number_of_employees",
-    "mean": 26.884615384615383,
-    "median": 14.0,
-    "std_dev": 31.353885785435814
+    "mean": 457.46153846153845,
+    "median": 99.0,
+    "std_dev": 800.6048328991891
   },
   {
     "column": "exited",
-    "mean": 0.5769230769230769,
-    "median": 1.0,
-    "std_dev": 0.5038314736557788
+    "mean": 0.5,
+    "median": 0.5,
+    "std_dev": 0.5099019513592785
   }
 ]
 
@@ -1002,8 +1002,8 @@ diagnostics:
     }
   ],
   "execution_time": [
-    0.7493781669763848,
-    2.5262604999588802
+    0.7510058330371976,
+    2.531033333041705
   ],
   "missing_values_percent": [
     0.0,

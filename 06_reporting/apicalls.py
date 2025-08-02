@@ -17,7 +17,8 @@ URL = "http://127.0.0.1:8000"
 
 #Call each API endpoint and store the responses
 logger.info("Calling API endpoints")
-response1 = requests.post(URL+'/prediction', data={'filepath': '/testdata/testdata.csv'}).content
+response1 = requests.post(URL+'/prediction', json={'filepath': '/testdata/testdata.csv'}).content
+logger.info({"response1": response1})
 logger.info("response1 completed")
 response2 = requests.get(URL + '/scoring').content
 logger.info("response2 completed")
@@ -25,6 +26,7 @@ response3 = requests.get(URL +'/summarystats').content
 logger.info("response3 completed")
 response4 = requests.get(URL + "/diagnostics").content
 logger.info("response4 completed")
+
 
 #combine all API responses
 responses = {

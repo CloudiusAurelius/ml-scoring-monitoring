@@ -122,11 +122,12 @@ def predict():
     a location provided by the user.
     """
     # Construct filename from request
-    default_route = f"/{config['output_folder_path']}/{ingested_data}"
-    filename = request.args.get('filepath', default=default_route, type=str)
+    #default_route = f"/{config['output_folder_path']}/{ingested_data}"
+    #filename = request.args.get('filepath')
+    filename = request.get_json().get('filepath')
     logger.info(f"Received request to predict with file: {filename}")
     #data_file_path = os.path.join(dataset_csv_path, filename)
-    data_file_path = dataset_csv_path+filename
+    data_file_path = dataset_csv_path+str(filename)
     logger.info(f"Data file path: {data_file_path}")
     if not os.path.exists(data_file_path):
         return jsonify({"error": "File not found"}), 404
