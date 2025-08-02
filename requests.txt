@@ -1,0 +1,1 @@
+curl -i -X POST -H 'Content-Type: application/json' -d '{"filepath": "/ingesteddata/finaldata.csv"}' http://192.168.1.59:8000/prediction

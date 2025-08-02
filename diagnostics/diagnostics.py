@@ -197,10 +197,13 @@ def check_outdated_packages() -> pd.DataFrame:
         text=True
     )
     packages = json.loads(output)
+    logger.info(f"Found {len(packages)} installed packages")
 
     # Get latest version and store all information in a list
+    logger.info("Checking for latest versions of installed packages")
     packages_list = []
     for pkg in packages:
+        logger.info(f"Checking package: {pkg['name']}")
         name = pkg['name']
         current_version = pkg['version']
         
