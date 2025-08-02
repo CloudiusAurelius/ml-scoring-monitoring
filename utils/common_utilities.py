@@ -16,6 +16,8 @@ import pickle
 def get_project_root(logger: logging.Logger) -> str:
     """
     Get the project root directory.
+    If already in the project root (named 'ml-scoring-monitoring'), return it.
+    Otherwise, move up one directory and check again.
     Inputs:
     - None
     Outputs:
@@ -23,7 +25,16 @@ def get_project_root(logger: logging.Logger) -> str:
     """
     cwd = os.getcwd()
     logger.info(f"Current working directory: {cwd}")
-    project_root = os.path.dirname(cwd)
+    project_name = "ml-scoring-monitoring"
+    if os.path.basename(cwd) == project_name:
+        project_root = cwd
+    else:
+        parent = os.path.dirname(cwd)
+        if os.path.basename(parent) == project_name:
+            project_root = parent
+        else:
+            logger.warning(f"Could not find project root named '{project_name}' in current or parent directory.")
+            project_root = parent  # fallback
     return project_root
 
 

@@ -38,7 +38,6 @@ def go(config: DictConfig):
 
     # Move to a temporary directory
     with tempfile.TemporaryDirectory() as tmp_dir:
-
         
         if "data_ingestion" in active_steps:
             # Ingest data from the input folder and save it to the output folder            
@@ -48,8 +47,9 @@ def go(config: DictConfig):
                 #version='main',
                 env_manager="conda",
                 parameters={
-                    "config_file": config["main"]["config_file"],
-                    "output_filename": config["data_ingestion"]["output_filename"]
+                    "config_file": config["main"]["config_file"],                    
+                    "output_filename": config["data_ingestion"]["output_filename"],
+                    "ingest_files_record": config["data_ingestion"]["ingest_files_record"]
                 }
             )
 
@@ -66,6 +66,7 @@ def go(config: DictConfig):
                     "output_modelname": config["model_training"]["output_modelname"]
                 }
             )
+
 
         if "model_scoring" in active_steps:
             # Train the model using the ingested data
@@ -102,7 +103,7 @@ def go(config: DictConfig):
         if "diagnostics" in active_steps:
             # Train the model using the ingested data
             _ = mlflow.run(
-                os.path.join(hydra.utils.get_original_cwd(), "05_diagnostics"),
+                os.path.join(hydra.utils.get_original_cwd(), "diagnostics"),
                 entry_point="main",
                 #version='main',
                 env_manager="conda",
