@@ -214,3 +214,4 @@ ingested_files.txt
 mlruns/
 outputs/
 cronjob.txt
+*.zip
