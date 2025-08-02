@@ -31,6 +31,10 @@ This project implements an end-to-end ML pipeline with monitoring and automation
 
 ## Workflow
 
+The training pipeline was constructed with MLFlow. For each step below the following two files are used:
+- `conda.yml` to define the environment of the respective step
+- `MLproject` to define the execution of the respective step
+
 To run the complete training, deployment and reporting pipeline:
 ```bash
 ./run_pipeline.sh
@@ -45,7 +49,7 @@ Reusable code for configuration, model loading, and data processing is in:
 ### Step 1: Data Ingestion
 
 - Reads all CSVs from `/01_data/practicedata`, removes duplicates, and writes to `/01_data/ingestdata/finaldata.csv`.
-- Scripts: `01_data/ingestion.py`, `conda.yml`, `MLproject`
+- Scripts: `01_data/ingestion.py`
 - Run:
     ```bash
     mlflow run . -P steps="data_ingestion"
@@ -54,7 +58,8 @@ Reusable code for configuration, model loading, and data processing is in:
 ### Step 2: Model Training
 
 - Trains a Logistic Regression model on `/01_data/ingestdata/finaldata.csv`.
-- Scripts: `02_training/training.py`, `conda.yml`, `MLproject`
+- Stores the model together with related information in `/models/trainedmodel.pkl`
+- Scripts: `02_training/training.py`
 - Run:
     ```bash
     mlflow run . -P steps="model_training"
@@ -63,7 +68,7 @@ Reusable code for configuration, model loading, and data processing is in:
 ### Step 3: Model Scoring
 
 - Scores test data using the trained model.
-- Scripts: `03_scoring/training.py`, `conda.yml`, `MLproject`
+- Scripts: `03_scoring/training.py`
 - Run:
     ```bash
     mlflow run . -P steps="model_scoring"
@@ -72,7 +77,7 @@ Reusable code for configuration, model loading, and data processing is in:
 ### Step 4: Model Deployment
 
 - Moves model files to the deployment folder.
-- Scripts: `04_deployment/training.py`, `conda.yml`, `MLproject`
+- Scripts: `04_deployment/training.py`
 - Run:
     ```bash
     mlflow run . -P steps="model_deployment"
@@ -89,7 +94,6 @@ Reusable code for configuration, model loading, and data processing is in:
 ## Reporting
 
 - Scripts in `reporting/` generate model performance reports and statistics.
-- Reports are available after running the API.
 - Run:
     ```bash
     mlflow run . -P steps="reporting"
@@ -103,6 +107,7 @@ Reusable code for configuration, model loading, and data processing is in:
     python app.py
     ```
 - Endpoints:
+    - `/` - Default endpoint with welcome message
     - `/prediction` — Model predictions
     - `/scoring` — Scoring metrics
     - `/summarystats` — Summary statistics for the ingested data
