@@ -16,10 +16,15 @@ logger = logging.getLogger()
 URL = "http://127.0.0.1:8000"
 
 #Call each API endpoint and store the responses
+logger.info("Calling API endpoints")
 response1 = requests.post(URL+'/prediction', data={'filepath': '/testdata/testdata.csv'}).content
+logger.info("response1 completed")
 response2 = requests.get(URL + '/scoring').content
+logger.info("response2 completed")
 response3 = requests.get(URL +'/summarystats').content
+logger.info("response3 completed")
 response4 = requests.get(URL + "/diagnostics").content
+logger.info("response4 completed")
 
 #combine all API responses
 responses = {
@@ -37,11 +42,13 @@ config_filepath = os.path.join(project_root, 'config.json')
 config = load_config(config_filepath, logger)
 logger.info(f"Configuration loaded: {config}")
 
-output_path = os.path.join(project_root, config["output_model_path"])
-with open('apireturns.txt', 'w') as f:
+output_path = os.path.join(
+                project_root,
+                '02_training',
+                config["output_model_path"],                
+                'apireturns.txt'
+)        
+with open(output_path, 'w') as f:
     for key, value in responses.items():
         f.write(f"{key}:\n{value.decode('utf-8')}\n\n")
-
-
-
-
+logger.info(f"Responses written to {output_path}")

@@ -104,3 +104,12 @@ mlflow run . -P steps="model_scoring"
 ```Bash
 mlflow run . -P steps="model_deployment"
 ```
+
+### Diagnostics
+
+
+### Reporting
+Run api with
+```Bash
+python app.py
+```
