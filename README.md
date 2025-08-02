@@ -54,6 +54,7 @@ Reusable code for configuration, model loading, and data processing is in:
     ```bash
     mlflow run . -P steps="data_ingestion"
     ```
+- A record of the ingested files is stored in `/01_data/ingesteddata/ingestfiles.txt` 
 
 ### Step 2: Model Training
 
@@ -124,7 +125,16 @@ The project root contains the script:
 It performs two checks:
 - 1. check for new data in source folder
 - 2. check for model drift
-Depending on the result of the checks, a new training and deployment chain will be triggered.
+Depending on the result of the checks, a new training and deployment chain will be triggered.  
+
+To automate this process and run it automatically in defined intervalls, a cronjob can be created. For example to run `fullprocess.py` every 10 minutes:
+```Bash
+crontab -e
+
+*/10 * * * * /bin/bash /absolute/path/to/fullprocess.py >> /absolute/path/to/cron.log 2>&1
+``` 
+
+
 
 
 ## Notes
